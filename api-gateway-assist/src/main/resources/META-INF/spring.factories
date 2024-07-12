@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.evlight.gateway.assist.application.config.gateway.GatewayConfig,\
+  cn.evlight.gateway.assist.application.config.redis.RedisConfig

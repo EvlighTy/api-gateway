@@ -40,7 +40,7 @@ public class GatewaySocketServer implements Callable<Channel> {
 
     @Override
     public Channel call() throws Exception {
-        logger.info("[启动网关] 启动中...");
+        logger.info("[启动网关]-[初始化通道] 开始");
         ChannelFuture channelFuture = null;
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -52,13 +52,14 @@ public class GatewaySocketServer implements Callable<Channel> {
 //            channelFuture = serverBootstrap.bind(configuration.getPort()).syncUninterruptibly();
             channel = channelFuture.channel();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new GatewayException(ExceptionInfo.SOCKET_START_ERROR);
         } finally {
-            if(null == channelFuture || !channelFuture.isSuccess()){
+            if (null == channelFuture || !channelFuture.isSuccess()) {
                 System.err.println(ExceptionInfo.SOCKET_START_ERROR);
             }
         }
-        logger.info("[启动网关] 完成");
+        logger.info("[启动网关]-[初始化通道] 成功");
         return channel;
     }
 }

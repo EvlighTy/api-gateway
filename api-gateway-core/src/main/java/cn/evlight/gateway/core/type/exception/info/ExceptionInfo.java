@@ -15,4 +15,11 @@ public interface ExceptionInfo {
     String UNKNOWN_HTTP_REQUEST_TYPE = "未知的http请求类型";
     String INVALID_TOKEN = "无效的令牌";
     String SOCKET_START_ERROR = "socket启动出错";
+    String REGISTER_FAILED = "网关注册失败";
+    String REGISTER_ERROR = "网关注册出错";
+    String PULL_FAILED = "网关拉取服务失败";
+    String PULL_ERROR = "网关拉取服务出错";
+    String INIT_FAILED = "网关初始化失败";
+    String CLOSE_FAILED = "网关关闭失败";
+    String START_FAILED = "网关启动失败";
 }

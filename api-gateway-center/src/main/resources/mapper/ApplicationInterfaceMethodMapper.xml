@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.evlight.gateway.center.infrastructure.dao.ApplicationInterfaceMethodMapper">
+
+    <resultMap id="applicationInterfaceMethodMap"
+               type="cn.evlight.gateway.center.infrastructure.po.ApplicationInterfaceMethod">
+        <id column="id" property="id"/>
+        <id column="system_id" property="systemId"/>
+        <id column="interface_id" property="interfaceId"/>
+        <id column="method_id" property="methodId"/>
+        <id column="method_name" property="methodName"/>
+        <id column="parameter_type" property="parameterType"/>
+        <id column="uri" property="uri"/>
+        <id column="http_command_type" property="httpCommandType"/>
+        <id column="auth" property="auth"/>
+        <id column="create_time" property="createTime"/>
+        <id column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="insertBatches"
+            parameterType="java.util.ArrayList">
+        INSERT INTO application_interface_method(system_id, interface_id, method_id, method_name, parameter_type,
+        uri, http_command_type, auth, create_time, update_time)
+        VALUES
+        <foreach collection="applicationInterfaceMethods" item="method" separator=",">
+            (#{method.systemId}, #{method.interfaceId}, #{method.methodId}, #{method.methodName},
+            #{method.parameterType},
+            #{method.uri}, #{method.httpCommandType}, #{method.auth}, NOW(), NOW());
+        </foreach>
+    </insert>
+
+    <select id="getApplicationInterfaceMethodList"
+            parameterType="cn.evlight.gateway.center.infrastructure.po.ApplicationInterfaceMethod"
+            resultMap="applicationInterfaceMethodMap">
+        SELECT id, system_id, interface_id, method_id, method_name, parameter_type, uri, http_command_type, auth
+        FROM application_interface_method
+        <where>
+            <if test="systemIds != null">
+                system_id in
+                <foreach collection="systemIds" item="systemId" open="(" separator="," close=")">
+                    #{systemId}
+                </foreach>
+            </if>
+            <if test="interfaceIds != null">
+                AND interface_id in
+                <foreach collection="interfaceIds" item="interfaceId" open="(" separator="," close=")">
+                    #{interfaceId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+    <select id="isExistBatches" resultType="java.lang.String"
+            parameterType="java.util.ArrayList">
+        select interface_id
+        from application_interface_method
+        where
+        <foreach collection="applicationInterfaceMethods" item="method" open="(" separator=" or " close=")">
+            (system_id = #{method.systemId} and interface_id = #{method.interfaceId} and method_id =
+            #{method.methodId} )
+        </foreach>
+
+    </select>
+
+</mapper>

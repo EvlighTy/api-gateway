@@ -1,0 +1,17 @@
+server:
+  port: 9001
+
+api-gateway:
+  config:
+    gateway:
+      address: http://127.0.0.1:8091
+      register-uri: /register/gateway
+      pull-uri: /pull/pull
+      groupId: 10001
+      gatewayId: api-gateway-g4
+      gatewayName: 电商配送网关
+      gatewayAddress: 127.0.0.1:8080
+    redis:
+      enabled: true
+      host: 127.0.0.1
+      port: 16379

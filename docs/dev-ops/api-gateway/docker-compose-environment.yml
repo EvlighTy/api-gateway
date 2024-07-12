@@ -1,0 +1,26 @@
+version: '1.0'
+services:
+  zookeeper:
+    image: zookeeper:3.4.13
+    container_name: zookeeper
+    restart: always
+    networks:
+      - api-gateway
+    ports:
+      - "2181:2181"
+
+    nginx:
+      image: nginx:1.27.0
+      container_name: nginx
+      restart: always
+      networks:
+        - api-gateway
+      ports:
+        - "9000:80"
+      volumes:
+        - F:\3_next\SpringCloud\Code\api-gateway\docs\nginx\conf\nginx.conf:/etc/nginx/nginx.conf
+        - F:\3_next\SpringCloud\Code\api-gateway\docs\nginx\html\index.html:/usr/share/nginx/html
+
+networks:
+  api-gateway:
+    driver: bridge

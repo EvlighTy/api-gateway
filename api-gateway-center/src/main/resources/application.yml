@@ -1,0 +1,24 @@
+server:
+  port: 8091
+
+config:
+  nginx:
+    container-name: nginx
+    server-name: 127.0.0.1
+    local-config-path: F:\3_next\SpringCloud\Code\api-gateway\docs\nginx\conf\nginx.conf
+    inner-config-path: /etc/nginx/
+  redis:
+    host: 127.0.0.1
+    port: 16379
+
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/api_gateway?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  config-location: classpath:/config/mybatis-config.xml
